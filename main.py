@@ -1,12 +1,14 @@
 import os
 
-from flask import Flask
+from flask import Flask, request
 from transformers import pipeline
 
 app = Flask(__name__)
 
 classifier = pipeline("zero-shot-classification",
                       model="facebook/bart-large-mnli")
+                      
+example = classifier('I like to travel', ['travel'])
  
 @app.route('/status', methods=['GET'])
 def status():
@@ -19,15 +21,13 @@ def run_path():
   query = content['query']
   threshold = 0.5
   result = []
+  candidate_labels = [query]
   for sentence in sentences:
-    temp = classifier(sequence_to_classify, candidate_labels)
+    temp = classifier(sentence, candidate_labels)
     if temp['scores'][0] > threshold:
       result.append(sentence)
   return {'result': result}
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
-
-
-
+    app.run(debug=True, host="0.0.0.0", port=8080)
