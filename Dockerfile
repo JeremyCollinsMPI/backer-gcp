@@ -15,6 +15,7 @@ RUN pip install flask
 RUN pip install flask-cors
 RUN pip install Werkzeug
 RUN pip install gunicorn
+RUN pip install sentencepiece protobuf
 
 # Copy local code to the container image.
 ENV APP_HOME /app
