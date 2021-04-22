@@ -28,7 +28,9 @@ def inference_path():
   content = request.get_json(force=True)
   sentences = content['sentences']
   hypothesis = content['hypothesis']
-  threshold = 0.5
+  threshold = content['threshold']
+  if threshold == None:
+    threshold = 0.8
   result = []
   for sentence in sentences:
     prob = evaluate_inference(sentence, hypothesis)
