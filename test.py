@@ -1,5 +1,6 @@
 from query_functions import *
 from example_flows import *
+from question_answering import *
 
 def test1():
   sources = ["US tops 5 million confirmed virus cases",
@@ -43,4 +44,15 @@ def test5():
   product_names = ['Neutrogena', '1452', '1454']
   answer = find_most_relevant_products(query, product_names, product_descriptions)
   print(answer)
+  
+def test6():
+  question = "How many pretrained models are available in Transformers?"
+  text = r"""
+🤗 Transformers (formerly known as pytorch-transformers and pytorch-pretrained-bert) provides general-purpose
+architectures (BERT, GPT-2, RoBERTa, XLM, DistilBert, XLNet…) for Natural Language Understanding (NLU) and Natural
+Language Generation (NLG) with over 32+ pretrained models in 100+ languages and deep interoperability between
+TensorFlow 2.0 and PyTorch.
+"""
+  print(answer_question(question, text))
+
 
