@@ -1,7 +1,6 @@
 import os
 
 from flask import Flask, request
-from transformers import pipeline
 from inference import *
 
 app = Flask(__name__)
