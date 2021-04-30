@@ -1,7 +1,7 @@
 # pose sequence as a NLI premise and label as a hypothesis
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
-nli_model = AutoModelForSequenceClassification.from_pretrained('joeddav/xlm-roberta-large-xnli')
-tokenizer = AutoTokenizer.from_pretrained('joeddav/xlm-roberta-large-xnli')
+nli_model = AutoModelForSequenceClassification.from_pretrained('valhalla/distilbart-mnli-12-1')
+tokenizer = AutoTokenizer.from_pretrained('valhalla/distilbart-mnli-12-1')
 
 def evaluate_inference(premise, hypothesis):
   # run through model pre-trained on MNLI
