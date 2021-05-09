@@ -19,7 +19,11 @@ def run_path():
   threshold = 0.25
   result = []
   for sentence in sentences:
-    prob = evaluate_inference(sentence, 'This sentence is about' + query)
+    print(len(sentence))
+    try:
+      prob = evaluate_inference(sentence, 'This sentence is about' + query)
+    except:
+      continue
     print(sentence)
     print(prob)
     if prob > threshold:
