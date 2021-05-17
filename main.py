@@ -3,7 +3,7 @@ import os
 from flask import Flask, request
 from inference import *
 from question_answering import *
-from ner import *
+# from ner import *
 
 app = Flask(__name__)
 
@@ -51,11 +51,11 @@ def question_answering_path():
   answer = answer_question(question, text)
   return {'result': answer}
 
-@app.route('/ner', methods=['POST'])
-def ner_path():
-  content = request.get_json(force=True)
-  text = content['text']
-  return {'result': ner(text)}
+# @app.route('/ner', methods=['POST'])
+# def ner_path():
+#   content = request.get_json(force=True)
+#   text = content['text']
+#   return {'result': ner(text)}
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8080)
