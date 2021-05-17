@@ -21,6 +21,7 @@ RUN pip install sentencepiece protobuf
 ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY . ./
+RUN mv cache /root/.cache
 
 
 # Run the web service on container startup. Here we use the gunicorn
