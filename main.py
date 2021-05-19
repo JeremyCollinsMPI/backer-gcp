@@ -51,9 +51,9 @@ def question_answering_path():
   question = content['question']
   answer_question_result = answer_question(question, text)
   if answer_question_result['score'] > 0.5:
-    return {'result': answer_question_result['result']}
+    return {'result': answer_question_result['result'], 'score': answer_question_result['score']}
   else:
-    return {'result': 'NA'}
+    return {'result': 'NA', 'score': answer_question_result['score']}
 
 @app.route('/cache_content')
 def cache_content_path():
