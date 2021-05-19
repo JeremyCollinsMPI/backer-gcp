@@ -4,6 +4,7 @@ from flask import Flask, request
 from inference import *
 from question_answering import *
 # from ner import *
+import os
 
 app = Flask(__name__)
 
@@ -51,6 +52,9 @@ def question_answering_path():
   answer = answer_question(question, text)
   return {'result': answer}
 
+@app.route('/cache_content')
+def cache_content_path():
+  return {'result': os.listdir('/root/.cache/huggingface/transformers/')}
 # @app.route('/ner', methods=['POST'])
 # def ner_path():
 #   content = request.get_json(force=True)

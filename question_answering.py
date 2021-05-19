@@ -1,3 +1,8 @@
+import os
+
+os.environ['TRANSFORMERS_CACHE'] = 'cache'
+
+
 from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 import torch
 

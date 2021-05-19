@@ -1,7 +1,13 @@
+import os
 # pose sequence as a NLI premise and label as a hypothesis
+
+os.environ['TRANSFORMERS_CACHE'] = 'cache'
+
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
-nli_model = AutoModelForSequenceClassification.from_pretrained('valhalla/distilbart-mnli-12-1')
-tokenizer = AutoTokenizer.from_pretrained('valhalla/distilbart-mnli-12-1')
+
+
+nli_model = AutoModelForSequenceClassification.from_pretrained('valhalla/distilbart-mnli-12-1', local_files_only=True)
+tokenizer = AutoTokenizer.from_pretrained('valhalla/distilbart-mnli-12-1', local_files_only=True, )
 
 def evaluate_inference(premise, hypothesis):
   # run through model pre-trained on MNLI
