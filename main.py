@@ -47,13 +47,15 @@ def inference_path():
 @app.route('/question_answering', methods=['POST'])
 def question_answering_path():
   content = request.get_json(force=True)
-  text = content['text']
-  question = content['question']
-  answer_question_result = answer_question(question, text)
-  if answer_question_result['score'] > 0.5:
-    return {'result': answer_question_result['result'], 'score': answer_question_result['score']}
+  context = content
+  answer_question_result = answer_question(context)
+  score = float(answer_question_result['score'])
+  if 'threshold' not in context.keys():
+    context['threshold'] = 4
+  if score > context['threshold']:
+    return {'result': answer_question_result['result'], 'score': score}
   else:
-    return {'result': 'NA', 'score': answer_question_result['score']}
+    return {'result': 'NA', 'score': score}
 
 @app.route('/cache_content')
 def cache_content_path():

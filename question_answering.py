@@ -9,7 +9,9 @@ import torch
 qa_tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased-distilled-squad")
 qa_model = AutoModelForQuestionAnswering.from_pretrained("distilbert-base-uncased-distilled-squad")
 
-def answer_question(question, text):
+def answer_question(context):
+  question = context['question']
+  text = context['text']
   inputs = qa_tokenizer.encode_plus(question, text, add_special_tokens=True, return_tensors="pt")
   input_ids = inputs["input_ids"].tolist()[0]
 
@@ -22,4 +24,4 @@ def answer_question(question, text):
   answer_end = torch.argmax(answer_end_scores) + 1  # Get the most likely end of answer with the argmax of the score
 
   answer = qa_tokenizer.convert_tokens_to_string(qa_tokenizer.convert_ids_to_tokens(input_ids[answer_start:answer_end]))
-  return {'result': answer, torch.max(answer_start_scores)}
+  return {'result': answer, 'score': torch.max(answer_start_scores)}
