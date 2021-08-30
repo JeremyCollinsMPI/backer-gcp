@@ -44,6 +44,22 @@ def inference_path():
       result.append(sentence)
   return {'result': result}  
 
+@app.route('/classify_intent', methods=['POST'])
+def classify_intent_path():
+  content = request.get_json(force=True)
+  intents_and_examples = content['intents_and_examples']
+  input = content['input']
+  probs = []
+  for example in intents_and_examples.keys():
+    prob = evaluate_inference(input, example)
+    probs.append([example, prob])
+  probs = sorted(probs, key=lambda x:x[1], reverse=True)
+  print(probs)
+  best_example = probs[0][0]
+  confidence = float(probs[0][1])
+  intent = intents_and_examples[best_example]
+  return {'result': {'name': intent, 'confidence': confidence}}
+
 @app.route('/question_answering', methods=['POST'])
 def question_answering_path():
   content = request.get_json(force=True)
