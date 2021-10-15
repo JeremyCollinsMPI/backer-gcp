@@ -3,6 +3,8 @@ import os
 from flask import Flask, request
 from inference import *
 from question_answering import *
+from text_classification import classify_text
+
 # from ner import *
 import os
 
@@ -73,6 +75,15 @@ def question_answering_path():
   else:
     return {'result': 'NA', 'score': score}
 
+@app.route('/classify_text', methods=['POST'])
+def classify_text_path():
+  content = request.get_json(force=True)
+  context = content
+  context['language'] = 'en'
+  context['method'] = 'keras'
+  classify_text_result = classify_text(context)
+  return classify_text_result
+
 @app.route('/cache_content')
 def cache_content_path():
   return {'result': os.listdir('/root/.cache/huggingface/transformers/')}
@@ -83,4 +94,4 @@ def cache_content_path():
 #   return {'result': ner(text)}
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=8080)
+    app.run(debug=False, host="0.0.0.0", port=8080, threaded=False)
